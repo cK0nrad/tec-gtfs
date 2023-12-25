@@ -51,7 +51,7 @@ impl Store {
     pub fn new() -> Self {
         logger::fine("FETCHER", "Loading GTFS");
         let start_time = std::time::Instant::now();
-        let gtfs = match GtfsReader::default().read("src/gtfs") {
+        let gtfs = match GtfsReader::default().read("gtfs") {
             Ok(gtfs) => gtfs,
             Err(_) => panic!("Error loading gtfs"),
         };
