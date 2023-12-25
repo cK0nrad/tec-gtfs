@@ -1,5 +1,5 @@
 [package]
-name = "tec-fetcher"
+name = "tec-gtfs"
 version = "0.1.0"
 edition = "2021"
 
