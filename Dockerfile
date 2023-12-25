@@ -9,8 +9,6 @@ COPY Cargo.toml .
 # Path: /usr/src/app/Cargo.lock
 COPY Cargo.lock .
 
-COPY build.rs .
-
 # Path: /usr/src/app/src
 COPY src src
 
