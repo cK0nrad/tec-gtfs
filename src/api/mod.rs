@@ -15,6 +15,7 @@ pub async fn init(store: Arc<Store>) {
         .allow_headers(Any);
 
     let app = Router::new()
+        .route("/", get(|| async { "Hello, World!" }))
         .route("/theorical", get(theorical::theorical_schedule))
         .route("/shape", get(shape::shape))
         .route("/info", get(info::info))
