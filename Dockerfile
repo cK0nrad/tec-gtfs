@@ -19,4 +19,6 @@ RUN cargo install --path .
 
 EXPOSE 3000
 
+RUN apt-get install -y wget
+
 CMD ["tec-gtfs"]
