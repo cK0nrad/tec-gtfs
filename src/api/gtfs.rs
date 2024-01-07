@@ -40,8 +40,8 @@ pub async fn refresh(
 
     match app.refresh_gtfs(key).await {
         Ok(_) => Ok((
-            StatusCode::INTERNAL_SERVER_ERROR,
-            Json(json!({"ok": "refresh running in background"})),
+            StatusCode::OK,
+            Json(json!({"ok": "refreshed"})),
         )),
         Err(e) => {
             logger::critical(
