@@ -50,7 +50,8 @@ pub async fn stops(State(app): State<Arc<Store>>, query: Query<BboxQuery>) -> im
         }
     };
 
-    let app = app.stops.read().await;
+    let stops = app.get_stops();
+    let app = stops.read().await;
     let extent = Extent::new(*west as f64, *south as f64, *east as f64, *north as f64);
     let stops = app.find_bbox(&extent);
 
@@ -71,7 +72,8 @@ pub async fn bus_per_stop(
         }
     };
 
-    let app = app.reverse_stops.read().await;
+    let rs = app.get_reverse_stops();
+    let app = rs.read().await;
     match app.get(stop_id) {
         Some(stops) => Ok(Json(stops).into_response()),
         None => Err((

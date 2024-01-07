@@ -1,12 +1,13 @@
 use crate::{logger, store::Store};
 use axum::{http::Method, routing::get, Router};
-use std::sync::Arc;
+use std::{sync::Arc, net::SocketAddr};
 use tower_http::cors::{Any, CorsLayer};
 
 mod info;
 mod shape;
 mod stops;
 mod theorical;
+mod gtfs;
 
 pub async fn init(store: Arc<Store>) {
     let cors = CorsLayer::new()
@@ -21,6 +22,7 @@ pub async fn init(store: Arc<Store>) {
         .route("/info", get(info::info))
         .route("/stops", get(stops::stops))
         .route("/bus_from_stop", get(stops::bus_per_stop))
+        .route("/refresh_gtfs", get(gtfs::refresh))
         .layer(cors)
         .with_state(store);
 
@@ -30,7 +32,7 @@ pub async fn init(store: Arc<Store>) {
         format!("Listening to: {}", "0.0.0.0:3006").as_str(),
     );
 
-    axum::serve(listener, app).await.unwrap();
+    axum::serve(listener, app.into_make_service_with_connect_info::<SocketAddr>()).await.unwrap();
 }
 
 #[derive(serde::Deserialize)]

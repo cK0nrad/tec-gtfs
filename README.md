@@ -17,6 +17,11 @@ $ cargo run --release
 
 By default it will listen on port 3006.
 
+.env : 
+```env
+SECRET=AZERTY # Secret used to refresh GTFS file without restart
+```
+
 
 ## Linked projects
 

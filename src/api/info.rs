@@ -10,7 +10,8 @@ use serde_json::json;
 use std::sync::Arc;
 
 pub async fn info(State(app): State<Arc<Store>>, query: Query<TripQuery>) -> impl IntoResponse {
-    let app = app.gtfs.read().await;
+    let gtfs = app.get_gtfs();
+    let app = gtfs.read().await;
     let trip_id = match &query.trip_id {
         Some(trip_id) => trip_id,
         None => {
